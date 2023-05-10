@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TWITTER LIVE REPLIES,LIKE & RETWEET COUNT</title>
+  <style>
+body {
+  background-image: url('https://images.pexels.com/photos/1420701/pexels-photo-1420701.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  }
+    /* Style the input and button */
+    input[type=url] {
+      width: 80%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Style the count display */
+    .count {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+   <p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Montserrat&size=30&duration=5001&color=228B22&vCenter=true&center=true&width=460&lines=WELCOME+TO+TWITTER;+LIVE+RPLY+LIKE+;RETWEET+COUNT+FOR+A+POST+;HAPPY+SEARCHING....!">
+</p>
+  <h1 style="text-align: center; padding: 10px;">TWITTER LIVE RPLY,LIKE & RETWEET COUNT</h1>
+<input type="url" id="url" placeholder="Enter Twitter post URL">
+  <button onclick="getCount()">Get Count</button>
+  <div class="count">
+    <p>Replies: <span id="replies"></span></p>
+    <p>Likes: <span id="likes"></span></p>
+    <p>Retweets: <span id="retweets"></span></p>
+  </div>
+  <script>
+    function getCount() {
+      // Get the URL input value
+      var url = document.getElementById("url").value;
+      // Extract the tweet ID from the URL
+      var tweetId = url.split("/").pop();
+      // Construct the API endpoint URL
+      var apiUrl = "https://api.twitter.com/2/tweets/" + tweetId + "?expansions=public_metrics&tweet.fields=public_metrics&user.fields=public_metrics";
+      // Send a GET request to the API endpoint
+      fetch(apiUrl, {
+        headers: {
+          "Authorization": "Bearer YOUR_BEARER_TOKEN_HERE"
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Update the count display with the API response data
+        document.getElementById("replies").innerHTML = data.data.public_metrics.reply_count;
+        document.getElementById("likes").innerHTML = data.data.public_metrics.like_count;
+        document.getElementById("retweets").innerHTML = data.data.public_metrics.retweet_count;
+      })
+      .catch(error => console.error(error));
+    }
+  </script>
+ <div class="buttons-container">
+  <a href="mailto:yashwanth6678@gmail.com" class="button">Contact Me</a>
+</div>
+<style>
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid black;
+  border-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+  
+.button:hover {
+  background-color: black;
+  color: white;
+}
+</style>
+</body>
+</html>
